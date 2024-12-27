@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.craftmen.system.mapper.CraftmenProcessRequirementsMapper">
+    
+    <resultMap type="CraftmenProcessRequirements" id="CraftmenProcessRequirementsResult">
+        <result property="id"    column="id"    />
+        <result property="processId"    column="process_id"    />
+        <result property="requirement"    column="requirement"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+    </resultMap>
+
+    <sql id="selectCraftmenProcessRequirementsVo">
+        select id, process_id, requirement, created_at, updated_at from craftmen_process_requirements
+    </sql>
+
+    <select id="selectCraftmenProcessRequirementsList" parameterType="CraftmenProcessRequirements" resultMap="CraftmenProcessRequirementsResult">
+        <include refid="selectCraftmenProcessRequirementsVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+            <if test="processId != null "> and process_id = #{processId}</if>
+        </where>
+    </select>
+    
+    <select id="selectCraftmenProcessRequirementsById" parameterType="Long" resultMap="CraftmenProcessRequirementsResult">
+        <include refid="selectCraftmenProcessRequirementsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCraftmenProcessRequirements" parameterType="CraftmenProcessRequirements" useGeneratedKeys="true" keyProperty="id">
+        insert into craftmen_process_requirements
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="processId != null">process_id,</if>
+            <if test="requirement != null">requirement,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="processId != null">#{processId},</if>
+            <if test="requirement != null">#{requirement},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCraftmenProcessRequirements" parameterType="CraftmenProcessRequirements">
+        update craftmen_process_requirements
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="processId != null">process_id = #{processId},</if>
+            <if test="requirement != null">requirement = #{requirement},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCraftmenProcessRequirementsById" parameterType="Long">
+        delete from craftmen_process_requirements where id = #{id}
+    </delete>
+
+    <delete id="deleteCraftmenProcessRequirementsByIds" parameterType="String">
+        delete from craftmen_process_requirements where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

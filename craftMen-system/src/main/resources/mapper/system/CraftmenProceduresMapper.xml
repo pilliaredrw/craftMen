@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.craftmen.system.mapper.CraftmenProceduresMapper">
+    
+    <resultMap type="CraftmenProcedures" id="CraftmenProceduresResult">
+        <result property="id"    column="id"    />
+        <result property="planId"    column="plan_id"    />
+        <result property="sequence"    column="sequence"    />
+        <result property="quotaTime"    column="quota_time"    />
+    </resultMap>
+
+    <sql id="selectCraftmenProceduresVo">
+        select id, plan_id, sequence, quota_time from craftmen_procedures
+    </sql>
+
+    <select id="selectCraftmenProceduresList" parameterType="CraftmenProcedures" resultMap="CraftmenProceduresResult">
+        <include refid="selectCraftmenProceduresVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+            <if test="planId != null "> and plan_id = #{planId}</if>
+        </where>
+    </select>
+    
+    <select id="selectCraftmenProceduresById" parameterType="Long" resultMap="CraftmenProceduresResult">
+        <include refid="selectCraftmenProceduresVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCraftmenProcedures" parameterType="CraftmenProcedures" useGeneratedKeys="true" keyProperty="id">
+        insert into craftmen_procedures
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="planId != null">plan_id,</if>
+            <if test="sequence != null">sequence,</if>
+            <if test="quotaTime != null">quota_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="planId != null">#{planId},</if>
+            <if test="sequence != null">#{sequence},</if>
+            <if test="quotaTime != null">#{quotaTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCraftmenProcedures" parameterType="CraftmenProcedures">
+        update craftmen_procedures
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="planId != null">plan_id = #{planId},</if>
+            <if test="sequence != null">sequence = #{sequence},</if>
+            <if test="quotaTime != null">quota_time = #{quotaTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCraftmenProceduresById" parameterType="Long">
+        delete from craftmen_procedures where id = #{id}
+    </delete>
+
+    <delete id="deleteCraftmenProceduresByIds" parameterType="String">
+        delete from craftmen_procedures where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.craftmen.system.mapper.CraftmenProcessPlansMapper">
+    
+    <resultMap type="CraftmenProcessPlans" id="CraftmenProcessPlansResult">
+        <result property="id"    column="id"    />
+        <result property="processId"    column="process_id"    />
+        <result property="batchQuantity"    column="batch_quantity"    />
+        <result property="planStart"    column="plan_start"    />
+        <result property="planEnd"    column="plan_end"    />
+        <result property="submittedAt"    column="submitted_at"    />
+    </resultMap>
+
+    <sql id="selectCraftmenProcessPlansVo">
+        select id, process_id, batch_quantity, plan_start, plan_end, submitted_at from craftmen_process_plans
+    </sql>
+
+    <select id="selectCraftmenProcessPlansList" parameterType="CraftmenProcessPlans" resultMap="CraftmenProcessPlansResult">
+        <include refid="selectCraftmenProcessPlansVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+            <if test="processId != null "> and process_id = #{processId}</if>
+        </where>
+    </select>
+    
+    <select id="selectCraftmenProcessPlansById" parameterType="Long" resultMap="CraftmenProcessPlansResult">
+        <include refid="selectCraftmenProcessPlansVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCraftmenProcessPlans" parameterType="CraftmenProcessPlans" useGeneratedKeys="true" keyProperty="id">
+        insert into craftmen_process_plans
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="processId != null">process_id,</if>
+            <if test="batchQuantity != null">batch_quantity,</if>
+            <if test="planStart != null">plan_start,</if>
+            <if test="planEnd != null">plan_end,</if>
+            <if test="submittedAt != null">submitted_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="processId != null">#{processId},</if>
+            <if test="batchQuantity != null">#{batchQuantity},</if>
+            <if test="planStart != null">#{planStart},</if>
+            <if test="planEnd != null">#{planEnd},</if>
+            <if test="submittedAt != null">#{submittedAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCraftmenProcessPlans" parameterType="CraftmenProcessPlans">
+        update craftmen_process_plans
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="processId != null">process_id = #{processId},</if>
+            <if test="batchQuantity != null">batch_quantity = #{batchQuantity},</if>
+            <if test="planStart != null">plan_start = #{planStart},</if>
+            <if test="planEnd != null">plan_end = #{planEnd},</if>
+            <if test="submittedAt != null">submitted_at = #{submittedAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCraftmenProcessPlansById" parameterType="Long">
+        delete from craftmen_process_plans where id = #{id}
+    </delete>
+
+    <delete id="deleteCraftmenProcessPlansByIds" parameterType="String">
+        delete from craftmen_process_plans where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
