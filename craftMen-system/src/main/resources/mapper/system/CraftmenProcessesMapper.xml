@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.craftmen.system.mapper.CraftmenProcessesMapper">
+    
+    <resultMap type="CraftmenProcesses" id="CraftmenProcessesResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="outsourcingPrice"    column="outsourcing_price"    />
+        <result property="bottleneckDuration"    column="bottleneck_duration"    />
+        <result property="standardCapacity"    column="standard_capacity"    />
+        <result property="overtimeStandardCapacity"    column="overtime_standard_capacity"    />
+        <result property="overtimeExcessCapacity"    column="overtime_excess_capacity"    />
+        <result property="secondShiftCapacity"    column="second_shift_capacity"    />
+        <result property="overloadCapacity"    column="overload_capacity"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCraftmenProcessesVo">
+        select id, name, outsourcing_price, bottleneck_duration, standard_capacity, overtime_standard_capacity, overtime_excess_capacity, second_shift_capacity, overload_capacity, remark from craftmen_processes
+    </sql>
+
+    <select id="selectCraftmenProcessesList" parameterType="CraftmenProcesses" resultMap="CraftmenProcessesResult">
+        <include refid="selectCraftmenProcessesVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectCraftmenProcessesById" parameterType="Long" resultMap="CraftmenProcessesResult">
+        <include refid="selectCraftmenProcessesVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCraftmenProcesses" parameterType="CraftmenProcesses" useGeneratedKeys="true" keyProperty="id">
+        insert into craftmen_processes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="outsourcingPrice != null">outsourcing_price,</if>
+            <if test="bottleneckDuration != null">bottleneck_duration,</if>
+            <if test="standardCapacity != null">standard_capacity,</if>
+            <if test="overtimeStandardCapacity != null">overtime_standard_capacity,</if>
+            <if test="overtimeExcessCapacity != null">overtime_excess_capacity,</if>
+            <if test="secondShiftCapacity != null">second_shift_capacity,</if>
+            <if test="overloadCapacity != null">overload_capacity,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="outsourcingPrice != null">#{outsourcingPrice},</if>
+            <if test="bottleneckDuration != null">#{bottleneckDuration},</if>
+            <if test="standardCapacity != null">#{standardCapacity},</if>
+            <if test="overtimeStandardCapacity != null">#{overtimeStandardCapacity},</if>
+            <if test="overtimeExcessCapacity != null">#{overtimeExcessCapacity},</if>
+            <if test="secondShiftCapacity != null">#{secondShiftCapacity},</if>
+            <if test="overloadCapacity != null">#{overloadCapacity},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCraftmenProcesses" parameterType="CraftmenProcesses">
+        update craftmen_processes
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="outsourcingPrice != null">outsourcing_price = #{outsourcingPrice},</if>
+            <if test="bottleneckDuration != null">bottleneck_duration = #{bottleneckDuration},</if>
+            <if test="standardCapacity != null">standard_capacity = #{standardCapacity},</if>
+            <if test="overtimeStandardCapacity != null">overtime_standard_capacity = #{overtimeStandardCapacity},</if>
+            <if test="overtimeExcessCapacity != null">overtime_excess_capacity = #{overtimeExcessCapacity},</if>
+            <if test="secondShiftCapacity != null">second_shift_capacity = #{secondShiftCapacity},</if>
+            <if test="overloadCapacity != null">overload_capacity = #{overloadCapacity},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCraftmenProcessesById" parameterType="Long">
+        delete from craftmen_processes where id = #{id}
+    </delete>
+
+    <delete id="deleteCraftmenProcessesByIds" parameterType="String">
+        delete from craftmen_processes where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
