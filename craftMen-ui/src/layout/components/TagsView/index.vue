@@ -268,17 +268,22 @@ function handleScroll() {
   .tags-view-wrapper {
     .tags-view-item {
       display: inline-block;
+      align-items: center; // 垂直方向居中对齐
       position: relative;
       cursor: pointer;
-      height: 26px;
-      line-height: 26px;
+      height: 35px;
+      line-height: 35px;
       border: 1px solid var(--tags-item-border, #d8dce5);
       color: var(--tags-item-text, #495060);
       background: var(--tags-item-bg, #fff);
-      padding: 0 8px;
-      font-size: 12px;
-      margin-left: 5px;
+      padding: 0 12px;
+      font-size: 13px;
+      font-weight: 500; // 字体加粗，便于识别
+      margin-left: 8px;
+      border-radius: 8px 8px 0 0; // 标签上方圆角，模仿浏览器样式
       margin-top: 4px;
+      width: 120px; // 标签宽度设置为定长，稍微拉长
+      padding-left: 24px; // 左侧预留空间给白点，避免文字偏移
 
       &:first-of-type {
         margin-left: 15px;
@@ -293,41 +298,57 @@ function handleScroll() {
         color: #fff;
         border-color: #42b983;
 
-        &::before {
-          content: '';
-          background: #fff;
-          display: inline-block;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          position: relative;
-          margin-right: 5px;
+        // /* 选中标签的白点 */
+        // &::before {
+        //   content: ""; // 白点内容为空
+        //   background: #fff; // 白点背景色
+        //   display: inline-block; // 白点作为内联块显示
+        //   width: 8px; // 白点宽度
+        //   height: 8px; // 白点高度
+        //   border-radius: 50%; // 圆形
+        //   position: absolute; // 使用绝对定位放置白点
+        //   left: 8px; // 白点距离标签左侧的距离，与 padding-left 匹配
+        // }
+        /* 鼠标悬停效果 */
+        &:hover {
+          background-color: #e6f7ff; // 悬停时标签背景色变为浅蓝
+          // color: #1890ff; // 悬停时文字颜色变为深蓝
+        }
+        /* 关闭按钮样式 */
+        .close-icon {
+          top: 50%; // 关闭按钮垂直居中
+          transform: translateY(-50%); // 修正居中对齐
+          font-size: 12px; // 关闭按钮字体大小
+          color: #999999; // 默认关闭按钮颜色
+          cursor: pointer; // 鼠标悬停时变为手型
+          &:hover {
+            color: #ff4d4f; // 悬停关闭按钮颜色变红
+          }
         }
       }
     }
   }
 
+  // 右键菜单
   .contextmenu {
     margin: 0;
-    background: var(--el-bg-color-overlay, #fff);
-    z-index: 3000;
-    position: absolute;
-    list-style-type: none;
-    padding: 5px 0;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--tags-item-text, #333);
-    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
-    border: 1px solid var(--el-border-color-light, #e4e7ed);
-
+    background: var(--el-bg-color-overlay, #fff); // 菜单背景色
+    z-index: 3000; // 菜单层级
+    position: absolute; // 菜单绝对定位
+    list-style-type: none; // 去掉列表样式
+    padding: 5px 0; // 菜单上下内边距
+    border-radius: 4px; // 菜单圆角
+    font-size: 12px; // 菜单字体大小
+    font-weight: 400; // 菜单字体粗细
+    color: var(--tags-item-text, #333); // 菜单文字颜色
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3); // 菜单阴影
+    border: 1px solid var(--el-border-color-light, #e4e7ed); // 菜单边框颜色
     li {
-      margin: 0;
-      padding: 7px 16px;
-      cursor: pointer;
-
+      margin: 0; // 去掉列表项外边距
+      padding: 7px 16px; // 列表项内边距
+      cursor: pointer; // 鼠标悬停时变为手型
       &:hover {
-        background: var(--tags-item-hover, #eee);
+        background: var(--tags-item-hover, #eee); // 鼠标悬停时背景色
       }
     }
   }
