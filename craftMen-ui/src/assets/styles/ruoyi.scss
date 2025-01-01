@@ -74,8 +74,10 @@
 	padding: 10px 20px 0;
 }
 
+// ruoyi框架默认表样式
 .el-table {
 	.el-table__header-wrapper, .el-table__fixed-header-wrapper {
+		// 表头样式
 		th {
 			word-break: break-word;
 			background-color: #f8f8f9 !important;
@@ -86,6 +88,7 @@
 	}
 	.el-table__body-wrapper {
 		.el-button [class*="el-icon-"] + span {
+			background-color: #0000e9 !important;
 			margin-left: 1px;
 		}
 	}

@@ -9,34 +9,44 @@ $yellow: #FEC171;
 $panGreen: #30B08F;
 
 // 默认主题变量
-$menuText: #bfcbd9;
-$menuActiveText: #409eff;
-$menuBg: #304156;
-$menuHover: #263445;
+// $menuText: #bfcbd9;
+// $menuActiveText: #409eff;
+// $menuBg: #304156;
+// $menuHover: #263445;
+$menuText: #4f5660; // 深灰文字，略微增加对比度
+$menuActiveText: #4a90e2; // 激活文字颜色更接近亮蓝色
+$menuBg: #f8f9fa; // 浅灰白背景，柔和过渡
+$menuHover: #e8ecf1; // 浅灰悬停背景，增加视觉层次
 
 // 浅色主题theme-light
-$menuLightBg: #ffffff;
-$menuLightHover: #f0f1f5;
-$menuLightText: #303133;
-$menuLightActiveText: #409EFF;
+$menuLightBg: #ffffff; // 纯白背景，保持干净
+$menuLightHover: #e8ecf1; // 浅灰色悬停背景，增加柔和感
+$menuLightText: #4f5660; // 深灰色文字，与整体背景对比和谐
+$menuLightActiveText: #4a90e2; // 激活项文字颜色明亮蓝色
 
 // 基础变量
-$base-sidebar-width: 200px;
-$sideBarWidth: 200px;
+$base-sidebar-width: 220px; // 稍微增加侧边栏宽度，适配现代风格
+$sideBarWidth: 220px; // 同步宽度
 
 // 菜单暗色变量
-$base-menu-color: #bfcbd9;
-$base-menu-color-active: #f4f4f5;
-$base-menu-background: #304156;
-$base-sub-menu-background: #1f2d3d;
-$base-sub-menu-hover: #001528;
+$base-menu-color: #4f5660; // 深灰色文字，确保可读性
+$base-menu-color-active: #4a90e2; // 激活菜单项文字为明亮蓝色
+$base-menu-background: #ffffff; // 菜单背景为纯白
+$base-sub-menu-background: #f6f7f8; // 子菜单背景为更浅的灰白
+// $base-sub-menu-hover: #e8ecf1; // 悬停时为柔和的浅灰色
+// $base-menu-color: #bfcbd9;
+// $base-menu-color-active: #f4f4f5;
+// $base-menu-background: #304156;
+// $base-sub-menu-background: #1f2d3d;
+$base-sub-menu-hover: #ff000000;
+// 这里叠加颜色的方式会让日夜主题矛盾, 弃用, 在分别的hover样式里面重写逻辑
 
 // 组件变量
-$--color-primary: #409EFF;
-$--color-success: #67C23A;
-$--color-warning: #E6A23C;
-$--color-danger: #F56C6C;
-$--color-info: #909399;
+$--color-primary: #4a90e2; // 主色调为亮蓝色，风格统一
+$--color-success: #67c23a; // 成功绿色
+$--color-warning: #f9c74f; // 提醒黄色
+$--color-danger: #f56c6c; // 错误红色
+$--color-info: #909399; // 信息色为中性灰色
 
 :export {
   menuText: $menuText;

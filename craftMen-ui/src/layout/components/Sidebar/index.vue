@@ -2,23 +2,11 @@
   <div :class="{ 'has-logo': showLogo }" class="sidebar-container">
     <logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu
-        :default-active="activeMenu"
-        :collapse="isCollapse"
-        :background-color="getMenuBackground"
-        :text-color="getMenuTextColor"
-        :unique-opened="true"
-        :active-text-color="theme"
-        :collapse-transition="false"
-        mode="vertical"
-        :class="sideTheme"
-      >
-        <sidebar-item
-          v-for="(route, index) in sidebarRouters"
-          :key="route.path + index"
-          :item="route"
-          :base-path="route.path"
-        />
+      <el-menu :default-active="activeMenu" :collapse="isCollapse" :background-color="getMenuBackground"
+        :text-color="getMenuTextColor" :unique-opened="true" :active-text-color="theme" :collapse-transition="false"
+        mode="vertical" :class="sideTheme">
+        <sidebar-item v-for="(route, index) in sidebarRouters" :key="route.path + index" :item="route"
+          :base-path="route.path" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -70,6 +58,9 @@ const activeMenu = computed(() => {
 
 <style lang="scss" scoped>
 .sidebar-container {
+  margin: 0.5%;
+  border-radius: 10px; // 整个侧边栏圆角处理
+  overflow: hidden; // 防止圆角失效
   background-color: v-bind(getMenuBackground);
   
   .scrollbar-wrapper {

@@ -202,6 +202,7 @@ function getList() {
 function loadProcessList() {
   listProcesses({ pageSize: 999, pageNum: 1 }).then(response => {
     processList.value = response.rows || [];
+    getList();         // 保证要求列表的获取时工艺列表已加载
     // console.log(processList.value);
   }).catch(error => {
     console.error("Failed to load process list:", error);
@@ -306,7 +307,6 @@ function handleExport() {
 // 初始化加载
 onMounted(() => {
   loadProcessList(); // 在组件挂载后立即加载工艺列表
-  getList();         // 保证要求列表的获取时工艺列表已加载
 });
 
 </script>

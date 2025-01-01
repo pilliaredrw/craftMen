@@ -109,8 +109,8 @@
     />
 
     <!-- 添加或修改工艺计划对话框 -->
-    <el-dialog :title="title" v-model="open" width="500px" append-to-body>
-      <el-form ref="plansRef" :model="form" :rules="rules" label-width="80px">
+    <el-dialog :title="title" v-model="open" width="400px" append-to-body>
+      <el-form ref="plansRef" :model="form" :rules="rules" label-width="120px">
         <!-- 工艺名称下拉框 -->
         <el-form-item label="工艺名称" prop="processId">
           <el-select
@@ -131,6 +131,7 @@
         </el-form-item>
         <el-form-item label="计划开始时间" prop="planStart">
           <el-date-picker clearable
+            style="width: 100%;"
             v-model="form.planStart"
             type="date"
             value-format="YYYY-MM-DD"
@@ -139,6 +140,7 @@
         </el-form-item>
         <el-form-item label="计划结束时间" prop="planEnd">
           <el-date-picker clearable
+            style="width: 100%;"
             v-model="form.planEnd"
             type="date"
             value-format="YYYY-MM-DD"
@@ -224,6 +226,7 @@ function getList() {
 function loadProcessList() {
   listProcesses({ pageSize: 999, pageNum: 1 }).then(response => {
     processList.value = response.rows || [];
+    getList();         // 保证要求列表的获取时工艺列表已加载
   }).catch(error => {
     console.error("Failed to load process list:", error);
   });
@@ -327,6 +330,5 @@ function handleExport() {
 // 初始化加载
 onMounted(() => {
   loadProcessList(); // 在组件挂载后立即加载工艺列表
-  getList();         // 保证要求列表的获取时工艺列表已加载
 });
 </script>

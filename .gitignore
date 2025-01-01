@@ -42,7 +42,9 @@ temp/
 *.log
 *.xml.versionsBackup
 *.swp
+*bak/
 
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml
+**/*bak
