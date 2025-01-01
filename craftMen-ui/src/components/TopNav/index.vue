@@ -6,26 +6,34 @@
     :ellipsis="false"
   >
     <template v-for="(item, index) in topMenus">
-      <el-menu-item :style="{'--theme': theme}" :index="item.path" :key="index" v-if="index < visibleNumber">
+      <el-menu-item
+        :style="{ '--theme': theme }"
+        :index="item.path"
+        :key="index"
+        v-if="index < visibleNumber"
+      >
         <svg-icon
-        v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
-        :icon-class="item.meta.icon"/>
+          v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
+          :icon-class="item.meta.icon"
+        />
         {{ item.meta.title }}
       </el-menu-item>
     </template>
 
     <!-- 顶部菜单超出数量折叠 -->
-    <el-sub-menu :style="{'--theme': theme}" index="more" v-if="topMenus.length > visibleNumber">
+    <el-sub-menu
+      :style="{ '--theme': theme }"
+      index="more"
+      v-if="topMenus.length > visibleNumber"
+    >
       <template #title>更多菜单</template>
       <template v-for="(item, index) in topMenus">
-        <el-menu-item
-          :index="item.path"
-          :key="index"
-          v-if="index >= visibleNumber">
-        <svg-icon
-          v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
-          :icon-class="item.meta.icon"/>
-        {{ item.meta.title }}
+        <el-menu-item :index="item.path" :key="index" v-if="index >= visibleNumber">
+          <svg-icon
+            v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
+            :icon-class="item.meta.icon"
+          />
+          {{ item.meta.title }}
         </el-menu-item>
       </template>
     </el-sub-menu>
@@ -33,22 +41,20 @@
 </template>
 
 <script setup>
-import { constantRoutes } from "@/router"
-import { isHttp } from '@/utils/validate'
-import useAppStore from '@/store/modules/app'
-import useSettingsStore from '@/store/modules/settings'
-import usePermissionStore from '@/store/modules/permission'
-
+import { constantRoutes } from "@/router";
+import { isHttp } from "@/utils/validate";
+import useAppStore from "@/store/modules/app";
+import useSettingsStore from "@/store/modules/settings";
+import usePermissionStore from "@/store/modules/permission";
 // 顶部栏初始数
 const visibleNumber = ref(null);
 // 当前激活菜单的 index
 const currentIndex = ref(null);
 // 隐藏侧边栏路由
-const hideList = ['/index', '/user/profile'];
-
-const appStore = useAppStore()
-const settingsStore = useSettingsStore()
-const permissionStore = usePermissionStore()
+const hideList = ["/index", "/user/profile"];
+const appStore = useAppStore();
+const settingsStore = useSettingsStore();
+const permissionStore = usePermissionStore();
 const route = useRoute();
 const router = useRouter();
 
@@ -64,14 +70,14 @@ const topMenus = computed(() => {
     if (menu.hidden !== true) {
       // 兼容顶部栏一级菜单内部跳转
       if (menu.path === "/") {
-          topMenus.push(menu.children[0]);
+        topMenus.push(menu.children[0]);
       } else {
-          topMenus.push(menu);
+        topMenus.push(menu);
       }
     }
-  })
+  });
   return topMenus;
-})
+});
 
 // 设置子路由
 const childrenMenus = computed(() => {

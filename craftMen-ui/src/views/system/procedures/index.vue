@@ -88,8 +88,8 @@
     />
 
     <!-- 添加或修改工序管理对话框 -->
-    <el-dialog :title="title" v-model="open" width="500px" append-to-body>
-      <el-form ref="proceduresRef" :model="form" :rules="rules" label-width="80px">
+    <el-dialog :title="title" v-model="open" width="400px" append-to-body>
+      <el-form ref="proceduresRef" :model="form" :rules="rules" label-width="120px">
         <el-form-item label="工艺计划编号" prop="planId">
           <el-input v-model="form.planId" placeholder="请输入工艺计划编号" />
         </el-form-item>
