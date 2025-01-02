@@ -48,3 +48,5 @@ temp/
 !*/build/*.html
 !*/build/*.xml
 **/*bak
+
+craftMen-admin/src/main/resources/application-druid.yml
