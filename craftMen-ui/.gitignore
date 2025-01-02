@@ -19,6 +19,7 @@ selenium-debug.log
 *.njsproj
 *.sln
 *.local
+craftMen-admin/src/main/resources/application-druid.yml
 
 package-lock.json
 yarn.lock
